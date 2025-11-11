@@ -1,0 +1,294 @@
+---
+alwaysApply: true
+---
+
+# AI Proto Project - Component Library Rules
+
+## 프로젝트 개요
+
+- **프레임워크**: Next.js 15, React 19
+- **아키텍처**: FSD (Feature Sliced Design)
+- **스타일링**: Tailwind CSS v4
+- **애니메이션**: Motion (구 Framer Motion)
+- **언어**: TypeScript
+- **디자인 시스템**: Linear Design System 기반
+
+## 필수 컴포넌트 라이브러리 사용
+
+### 컴포넌트 Import 경로
+
+모든 공통 UI 컴포넌트는 반드시 `@/shared/ui`에서 import해야 합니다.
+
+```typescript
+import {
+  Text,
+  Heading,
+  Button,
+  Card,
+  Input,
+  // ... 기타 컴포넌트
+} from "@/shared/ui";
+```
+
+### 사용 가능한 컴포넌트 목록
+
+#### 1. Layout Components (레이아웃)
+
+- **Navbar**: 네비게이션 바 (full-width, 모바일 반응형)
+
+  - Props: `logoText`, `links`, `actions`, `sticky`, `transparent`
+  - 사용 예: `<Navbar logoText="MyApp" links={[...]} actions={<>...</>} />`
+
+- **Footer**: 푸터 (full-width, 다단 레이아웃)
+
+  - Props: `logoText`, `description`, `sections`, `socialLinks`, `bottomText`, `bottomLinks`
+  - 사용 예: `<Footer logoText="MyApp" sections={[...]} />`
+
+- **Hero**: 히어로 섹션 (full-width, 다양한 배경 옵션)
+  - Props: `title`, `description`, `actions`, `badge`, `image`, `align`, `size`, `background`
+  - 사용 예: `<Hero title="..." description="..." actions={<>...</>} />`
+  - 추가: `HeroGridPattern` - 그리드 패턴 배경
+
+#### 2. Typography (타이포그래피)
+
+- **Text**: 일반 텍스트
+
+  - Props: `as`, `size` (tiny|micro|mini|small|regular|large), `weight` (light|normal|medium|semibold|bold), `color` (primary|secondary|tertiary|quaternary)
+  - 사용 예: `<Text size="regular" weight="medium">텍스트</Text>`
+
+- **Heading**: 제목
+  - Props: `as`, `level` (1-9), `color` (primary|secondary|tertiary|quaternary)
+  - 사용 예: `<Heading level="2">제목</Heading>`
+
+#### 3. Interactive Components (인터랙티브)
+
+- **Button**: 버튼
+
+  - Props: `variant` (primary|secondary|ghost|danger), `size` (small|medium|large), `fullWidth`, `loading`, `disabled`
+  - 사용 예: `<Button variant="primary" size="medium">클릭</Button>`
+
+- **Input**: 입력 필드
+
+  - Props: `label`, `error`, `helperText`, `fullWidth`, `type`, `placeholder`
+  - 사용 예: `<Input label="이메일" type="email" fullWidth />`
+
+- **Badge**: 뱃지/라벨
+
+  - Props: `variant` (default|primary|success|warning|danger|info), `size` (small|medium|large)
+  - 사용 예: `<Badge variant="success">Active</Badge>`
+
+- **Carousel**: 캐로셀/슬라이더
+  - Props: `autoPlay`, `autoPlayInterval`, `showDots`, `showArrows`
+  - 사용 예: `<Carousel autoPlay>{slides}</Carousel>`
+  - 슬라이드: `<CarouselSlide>{content}</CarouselSlide>`
+
+#### 4. Container Components (컨테이너)
+
+- **Card**: 카드 컨테이너
+
+  - Props: `variant` (default|bordered|elevated), `padding` (none|small|medium|large)
+  - 하위 컴포넌트: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`, `CardImage`
+  - 사용 예:
+
+  ```tsx
+  <Card variant="elevated">
+    <CardHeader>
+      <CardTitle>제목</CardTitle>
+      <CardDescription>설명</CardDescription>
+    </CardHeader>
+    <CardContent>내용</CardContent>
+  </Card>
+  ```
+
+- **CardImage**: 카드 이미지
+  - Props: `src`, `alt`, `aspectRatio` (square|video|wide|portrait)
+  - 사용 예: `<CardImage src="..." alt="..." aspectRatio="video" />`
+
+## 코딩 규칙
+
+### 1. 컴포넌트 사용 우선순위
+
+- ❌ 네이티브 HTML 요소 직접 사용 금지 (button, input, textarea 등)
+- ✅ 항상 공통 컴포넌트 라이브러리 사용
+- ✅ 커스터마이징이 필요한 경우 className prop으로 Tailwind 클래스 추가
+
+**잘못된 예:**
+
+```tsx
+<button className="px-4 py-2 bg-blue-500">클릭</button>
+<h1 className="text-2xl font-bold">제목</h1>
+<input type="text" placeholder="입력" />
+```
+
+**올바른 예:**
+
+```tsx
+<Button variant="primary">클릭</Button>
+<Heading level="1">제목</Heading>
+<Input placeholder="입력" />
+```
+
+### 2. 테마 일관성
+
+- CSS 변수를 통한 테마 색상 사용
+- 커스텀 색상 하드코딩 금지
+- Tailwind에서 테마 색상 사용: `bg-bg-primary`, `text-text-primary`, `border-border-primary` 등
+
+**사용 가능한 색상 변수:**
+
+- Background: `bg-primary`, `bg-secondary`, `bg-tertiary`, `bg-quaternary`
+- Text: `text-primary`, `text-secondary`, `text-tertiary`, `text-quaternary`
+- Border: `border-primary`, `border-secondary`, `border-tertiary`
+- Brand: `brand`, `accent`, `link`
+- UI Colors: `red`, `orange`, `yellow`, `green`, `blue`, `indigo`
+
+### 3. 레이아웃 규칙
+
+- **Full-width 컴포넌트**: Navbar, Hero, Footer는 자동으로 full-width
+- **최대 너비**: 일반 콘텐츠는 `max-w-[1280px] mx-auto` 사용
+- **간격**: Tailwind spacing 유틸리티 사용 (px-6, py-12 등)
+
+### 4. Motion 애니메이션
+
+- Motion 라이브러리 import: `import { motion } from 'motion/react'`
+- 기존 Framer Motion 구문 대신 최신 Motion 사용
+- 애니메이션이 필요한 경우 테마의 easing과 speed 사용
+
+### 5. 파일 네이밍
+
+- **컴포넌트**: PascalCase (예: `UserProfile.tsx`)
+- **함수/Hook/유틸**: kebab-case (예: `use-auth.ts`, `format-date.ts`)
+- **폴더**: kebab-case (예: `user-profile/`)
+
+### 6. 접근성 (Accessibility)
+
+- 모든 이미지에 `alt` 속성 필수
+- 버튼에 적절한 `aria-label` 제공 (아이콘 버튼의 경우)
+- 키보드 네비게이션 지원
+- Focus 상태 스타일링 필수
+
+### 7. 반응형 디자인
+
+- 모바일 퍼스트 접근
+- Tailwind 브레이크포인트 사용: `md:`, `lg:`, `xl:`
+- 모든 컴포넌트는 기본적으로 반응형이어야 함
+
+## 금지 사항
+
+### ❌ 하지 말아야 할 것들
+
+1. 네이티브 HTML 폼 요소 직접 사용 (`<button>`, `<input>`, `<select>` 등)
+2. 인라인 스타일 사용 (`style={{...}}`)
+3. 하드코딩된 색상 값 사용 (`#ff0000`, `rgb(255,0,0)`)
+4. 구버전 Framer Motion import (`framer-motion`)
+5. `!important` 사용
+6. 글로벌 CSS 스타일 추가 (globals.css 제외)
+7. 컴포넌트 내부에서 직접 fetch 호출 (tanstack query 사용)
+
+### ✅ 해야 할 것들
+
+1. 공통 컴포넌트 라이브러리 우선 사용
+2. 테마 시스템 준수
+3. TypeScript strict 모드 준수
+4. JSDoc 주석 작성 (함수/컴포넌트)
+5. DRY 원칙 준수
+6. 접근성 고려
+7. 성능 최적화 (React.memo, useMemo, useCallback 적절히 사용)
+
+## 예제 코드
+
+### 완벽한 페이지 구조 예시
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import {
+  Navbar,
+  Hero,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Button,
+  Input,
+  Text,
+  Footer,
+} from "@/shared/ui";
+
+export default function ExamplePage() {
+  const [email, setEmail] = useState("");
+
+  return (
+    <>
+      <Navbar
+        logoText="MyApp"
+        links={[
+          { label: "Features", href: "#features" },
+          { label: "Pricing", href: "#pricing" },
+        ]}
+        actions={
+          <>
+            <Button variant="ghost" size="small">
+              로그인
+            </Button>
+            <Button variant="primary" size="small">
+              시작하기
+            </Button>
+          </>
+        }
+        sticky
+        transparent
+      />
+
+      <Hero
+        title="환영합니다"
+        description="최고의 서비스를 경험하세요"
+        actions={
+          <Button variant="primary" size="large">
+            지금 시작하기
+          </Button>
+        }
+        align="center"
+        background="gradient"
+      />
+
+      <main className="max-w-[1280px] mx-auto px-6 py-12">
+        <Card variant="elevated">
+          <CardHeader>
+            <CardTitle>회원가입</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Input
+              label="이메일"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+            />
+            <Button variant="primary" fullWidth>
+              가입하기
+            </Button>
+          </CardContent>
+        </Card>
+      </main>
+
+      <Footer
+        logoText="MyApp"
+        description="최고의 서비스"
+        bottomText="© 2025 MyApp. All rights reserved."
+      />
+    </>
+  );
+}
+```
+
+## 참고 문서
+
+- 컴포넌트 문서: `/shared/ui/README.md`
+- 테마 설정: `/shared/config/theme.json`
+- 타입 정의: `/shared/types/theme.ts`
+
+## 요약
+
+이 프로젝트는 **Linear 디자인 시스템**을 기반으로 한 **통일된 컴포넌트 라이브러리**를 사용합니다. 새로운 기능을 구현할 때는 항상 기존 컴포넌트를 먼저 확인하고, 없는 경우에만 새로 만드세요. 일관성 있는 디자인과 코드 품질을 유지하는 것이 최우선입니다.

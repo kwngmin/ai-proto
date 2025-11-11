@@ -1,0 +1,460 @@
+---
+alwaysApply: true
+---
+
+# TypeScript & Build Quality Rules
+
+## 핵심 원칙
+
+이 프로젝트는 **타입 안전성**과 **빌드 품질**을 최우선으로 합니다. 모든 코드는 TypeScript strict 모드를 준수하고, 빌드 성공을 보장해야 합니다.
+
+## 1. Any 타입 사용 절대 금지
+
+### ❌ 절대 금지
+
+```typescript
+// 잘못된 예 - any 사용
+function processData(data: any) {
+  return data.value;
+}
+
+const result: any = fetchData();
+const config: any = getConfig();
+```
+
+### ✅ 올바른 방법
+
+#### 1-1. 타입을 모를 경우 unknown 사용
+
+```typescript
+// unknown 사용 후 타입 가드로 좁히기
+function processData(data: unknown) {
+  if (typeof data === "object" && data !== null && "value" in data) {
+    return (data as { value: string }).value;
+  }
+  throw new Error("Invalid data format");
+}
+```
+
+#### 1-2. 명시적 타입 정의
+
+```typescript
+// 인터페이스로 정확한 타입 정의
+interface ApiResponse {
+  data: string;
+  status: number;
+  error?: string;
+}
+
+const result: ApiResponse = await fetchData();
+```
+
+#### 1-3. 제네릭 활용
+
+```typescript
+// 제네릭으로 타입 안전성 확보
+function getData<T>(key: string): T | null {
+  const value = localStorage.getItem(key);
+  if (!value) return null;
+  return JSON.parse(value) as T;
+}
+
+interface User {
+  id: string;
+  name: string;
+}
+
+const user = getData<User>("user");
+```
+
+#### 1-4. 외부 라이브러리 타입이 없는 경우
+
+```typescript
+// 직접 타입 정의
+declare module "some-library" {
+  export interface LibraryOptions {
+    apiKey: string;
+    timeout?: number;
+  }
+
+  export function initialize(options: LibraryOptions): void;
+}
+```
+
+### 타입 좁히기 (Type Narrowing) 기법
+
+```typescript
+// 1. typeof 사용
+function handleValue(value: string | number) {
+  if (typeof value === "string") {
+    return value.toUpperCase(); // string 메서드 사용 가능
+  }
+  return value.toFixed(2); // number 메서드 사용 가능
+}
+
+// 2. in 연산자 사용
+type Cat = { meow: () => void };
+type Dog = { bark: () => void };
+
+function makeSound(animal: Cat | Dog) {
+  if ("meow" in animal) {
+    animal.meow(); // Cat 타입으로 좁혀짐
+  } else {
+    animal.bark(); // Dog 타입으로 좁혀짐
+  }
+}
+
+// 3. instanceof 사용
+function handleError(error: unknown) {
+  if (error instanceof Error) {
+    console.error(error.message); // Error 타입으로 좁혀짐
+  } else {
+    console.error("Unknown error:", error);
+  }
+}
+
+// 4. 타입 가드 함수 작성
+function isUser(obj: unknown): obj is User {
+  return (
+    typeof obj === "object" &&
+    obj !== null &&
+    "id" in obj &&
+    "name" in obj &&
+    typeof (obj as User).id === "string" &&
+    typeof (obj as User).name === "string"
+  );
+}
+
+function processUser(data: unknown) {
+  if (isUser(data)) {
+    console.log(data.name); // User 타입으로 안전하게 사용
+  }
+}
+```
+
+## 2. 코드 작성 후 필수 체크리스트
+
+### 모든 코드 작성 완료 후 반드시 실행
+
+```bash
+# 1. 타입 체크
+npm run type-check  # 또는 tsc --noEmit
+
+# 2. 린트 체크
+npm run lint
+
+# 3. 빌드 테스트
+npm run build
+
+# 4. 모든 테스트 통과 확인
+npm run test  # 테스트가 있는 경우
+```
+
+### CI/CD 파이프라인 시뮬레이션
+
+코드를 푸시하기 전에 로컬에서 전체 검증:
+
+```bash
+# 한 번에 모든 체크 실행
+npm run lint && npm run type-check && npm run build
+```
+
+### 에러 발생 시 대응
+
+#### Build Error 발생 시
+
+```
+❌ Type error: Property 'unknown' does not exist on type 'User'
+```
+
+**대응 방법:**
+
+1. 에러 메시지를 정확히 읽고 위치 파악
+2. 타입 정의 확인 및 수정
+3. 다시 빌드하여 에러 해결 확인
+4. **절대 any로 우회하지 않기**
+
+#### Lint Error 발생 시
+
+```
+❌ ESLint: 'React' is defined but never used
+```
+
+**대응 방법:**
+
+1. 불필요한 import 제거
+2. 사용하지 않는 변수 제거 또는 `_` prefix 추가
+3. 린트 규칙이 잘못되었다고 판단되면 팀과 논의 후 수정
+
+## 3. TypeScript 엄격 모드 설정
+
+### tsconfig.json 필수 설정
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
+```
+
+## 4. Props 및 인터페이스 정의
+
+### 컴포넌트 Props는 항상 명시적으로 정의
+
+```typescript
+// ❌ 잘못된 예
+export function UserCard(props) {
+  return <div>{props.name}</div>;
+}
+
+// ✅ 올바른 예
+interface UserCardProps {
+  name: string;
+  email: string;
+  age?: number;
+  onEdit?: (id: string) => void;
+}
+
+export function UserCard({ name, email, age, onEdit }: UserCardProps) {
+  return (
+    <div>
+      <h3>{name}</h3>
+      <p>{email}</p>
+      {age && <span>{age}세</span>}
+    </div>
+  );
+}
+```
+
+### 함수 타입 정의
+
+```typescript
+// ❌ 잘못된 예
+const handleClick = (e) => {
+  console.log(e.target);
+};
+
+// ✅ 올바른 예
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  console.log(e.currentTarget);
+};
+
+// ✅ 함수 시그니처로 정의
+type ClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => void;
+
+const handleClick: ClickHandler = (e) => {
+  console.log(e.currentTarget);
+};
+```
+
+## 5. 유틸리티 타입 활용
+
+### TypeScript 내장 유틸리티 타입 적극 활용
+
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Partial - 모든 속성을 선택적으로
+type PartialUser = Partial<User>;
+
+// Pick - 특정 속성만 선택
+type UserPreview = Pick<User, "id" | "name">;
+
+// Omit - 특정 속성 제외
+type UserWithoutPassword = Omit<User, "password">;
+
+// Required - 모든 속성을 필수로
+type RequiredUser = Required<Partial<User>>;
+
+// Record - 키-값 타입 정의
+type UserMap = Record<string, User>;
+
+// ReturnType - 함수 반환 타입 추출
+function getUser() {
+  return { id: "1", name: "John" };
+}
+type UserType = ReturnType<typeof getUser>;
+```
+
+## 6. 비동기 처리 타입
+
+### Async/Await 타입 정의
+
+```typescript
+// ❌ 잘못된 예
+async function fetchUser(id) {
+  const response = await fetch(`/api/users/${id}`);
+  return response.json();
+}
+
+// ✅ 올바른 예
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+async function fetchUser(id: string): Promise<User> {
+  const response = await fetch(`/api/users/${id}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch user");
+  }
+  return response.json() as Promise<User>;
+}
+
+// ✅ 에러 처리 포함
+type Result<T, E = Error> =
+  | { success: true; data: T }
+  | { success: false; error: E };
+
+async function fetchUserSafe(id: string): Promise<Result<User>> {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    if (!response.ok) {
+      return { success: false, error: new Error("Fetch failed") };
+    }
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error : new Error("Unknown error"),
+    };
+  }
+}
+```
+
+## 7. React 특화 타입
+
+### React 이벤트 타입
+
+```typescript
+// 마우스 이벤트
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {};
+const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {};
+
+// 폼 이벤트
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+
+// 키보드 이벤트
+const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {};
+
+// 포커스 이벤트
+const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {};
+```
+
+### React Hook 타입
+
+```typescript
+// useState
+const [count, setCount] = useState<number>(0);
+const [user, setUser] = useState<User | null>(null);
+
+// useRef
+const inputRef = useRef<HTMLInputElement>(null);
+const divRef = useRef<HTMLDivElement>(null);
+
+// useContext
+interface ThemeContextType {
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+}
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+```
+
+## 8. JSDoc 주석과 함께 사용
+
+### 타입과 문서화를 동시에
+
+```typescript
+/**
+ * 사용자 정보를 가져오는 함수
+ * @param id - 사용자 ID
+ * @returns 사용자 정보 또는 null
+ * @throws {Error} API 요청 실패 시
+ */
+async function fetchUser(id: string): Promise<User | null> {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    return null;
+  }
+}
+```
+
+## 9. 금지 사항 요약
+
+### 절대 하지 말 것
+
+1. ❌ `any` 타입 사용
+2. ❌ `@ts-ignore` 또는 `@ts-expect-error` 남용
+3. ❌ 타입 단언(`as`) 남용 (꼭 필요한 경우만)
+4. ❌ 빌드 에러를 무시하고 커밋
+5. ❌ 암묵적 any (implicit any) 허용
+6. ❌ 타입 체크 없이 코드 배포
+
+### 반드시 할 것
+
+1. ✅ 명시적 타입 정의
+2. ✅ 코드 작성 후 `npm run build` 실행
+3. ✅ 모든 Props에 인터페이스 정의
+4. ✅ `unknown` 사용 후 타입 가드로 좁히기
+5. ✅ 유틸리티 타입 적극 활용
+6. ✅ 에러 처리 시 타입 안전성 보장
+
+## 10. 개발 워크플로우
+
+### 코드 작성 프로세스
+
+```
+1. 기능 구현
+   ↓
+2. 타입 정의 확인
+   ↓
+3. npm run lint 실행
+   ↓
+4. 에러 수정
+   ↓
+5. npm run build 실행
+   ↓
+6. 빌드 성공 확인
+   ↓
+7. 커밋 및 푸시
+```
+
+### 에러 발생 시 절대 금지
+
+- ❌ any로 타입 우회
+- ❌ @ts-ignore로 에러 숨기기
+- ❌ "나중에 고치지 뭐" 하고 넘어가기
+
+### 올바른 대응
+
+- ✅ 에러 원인 파악
+- ✅ 정확한 타입 정의
+- ✅ 타입 가드 작성
+- ✅ 빌드 성공 확인
+
+## 요약
+
+이 프로젝트는 **타입 안전성**을 최우선으로 합니다. `any` 타입은 절대 사용하지 않으며, 모든 코드 작성 후 반드시 빌드를 실행하여 에러가 없음을 확인해야 합니다. 타입 에러는 런타임 버그를 사전에 방지하는 강력한 도구이므로, 타입 시스템을 최대한 활용하여 안정적인 코드를 작성하세요.
