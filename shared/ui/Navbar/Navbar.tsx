@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { type HTMLAttributes, type ReactNode, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import Link from 'next/link';
-import { cn } from '@/shared/lib/utils';
+import { type HTMLAttributes, type ReactNode, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import Link from "next/link";
+import { cn } from "@/shared/lib/utils";
 
 interface NavLink {
   label: string;
@@ -11,7 +11,7 @@ interface NavLink {
   badge?: string;
 }
 
-interface NavbarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+interface NavbarProps extends Omit<HTMLAttributes<HTMLElement>, "children"> {
   logo?: ReactNode;
   logoText?: string;
   links?: NavLink[];
@@ -32,7 +32,7 @@ interface NavbarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
  */
 export function Navbar({
   logo,
-  logoText = 'Linear',
+  logoText = "Linear",
   links = [],
   actions,
   sticky = true,
@@ -45,12 +45,10 @@ export function Navbar({
   return (
     <nav
       className={cn(
-        'w-full z-[var(--z-header)]',
-        sticky && 'sticky top-0',
-        'border-b border-border-primary',
-        transparent
-          ? 'bg-bg-primary/80 backdrop-blur-[20px]'
-          : 'bg-bg-primary',
+        "w-full z-[var(--z-header)]",
+        sticky && "sticky top-0",
+        "border-b border-border-primary",
+        transparent ? "bg-bg-primary/80 backdrop-blur-[20px]" : "bg-bg-primary",
         className
       )}
       {...props}
@@ -61,10 +59,10 @@ export function Navbar({
           <div className="flex items-center gap-8">
             <Link
               href="/"
-              className="flex items-center gap-2 text-text-primary font-[590] text-[1.0625rem] tracking-[-0.012em] hover:opacity-80 transition-opacity"
+              className="flex items-center gap-2 text-text-primary font-[600] text-[1.0625rem] tracking-[-0.012em] hover:opacity-80 transition-opacity"
             >
               {logo || (
-                <div className="w-8 h-8 rounded-[6px] bg-brand flex items-center justify-center text-brand-text font-[680]">
+                <div className="w-8 h-8 rounded-[6px] bg-brand flex items-center justify-center text-brand-text font-[700]">
                   {logoText.charAt(0)}
                 </div>
               )}
@@ -79,15 +77,15 @@ export function Navbar({
                     key={index}
                     href={link.href}
                     className={cn(
-                      'relative px-3 py-2 rounded-[6px]',
-                      'text-[0.875rem] font-[510] text-text-secondary',
-                      'hover:text-text-primary hover:bg-bg-translucent',
-                      'transition-colors'
+                      "relative px-3 py-2 rounded-[6px]",
+                      "text-[0.875rem] font-[500] text-text-secondary",
+                      "hover:text-text-primary hover:bg-bg-translucent",
+                      "transition-colors"
                     )}
                   >
                     {link.label}
                     {link.badge && (
-                      <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-[0.625rem] font-[590] bg-accent-default text-brand-text rounded-full">
+                      <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-[0.625rem] font-[600] bg-accent-default text-brand-text rounded-full">
                         {link.badge}
                       </span>
                     )}
@@ -98,9 +96,7 @@ export function Navbar({
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            {actions}
-          </div>
+          <div className="hidden md:flex items-center gap-3">{actions}</div>
 
           {/* Mobile Menu Button */}
           {links.length > 0 && (
@@ -142,7 +138,7 @@ export function Navbar({
           {isMobileMenuOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
               className="md:hidden overflow-hidden border-t border-border-primary max-w-[1280px] mx-auto"
@@ -153,15 +149,15 @@ export function Navbar({
                     key={index}
                     href={link.href}
                     className={cn(
-                      'flex items-center justify-between px-3 py-2 rounded-[6px]',
-                      'text-[0.875rem] font-[510] text-text-secondary',
-                      'hover:text-text-primary hover:bg-bg-translucent',
-                      'transition-colors'
+                      "flex items-center justify-between px-3 py-2 rounded-[6px]",
+                      "text-[0.875rem] font-[500] text-text-secondary",
+                      "hover:text-text-primary hover:bg-bg-translucent",
+                      "transition-colors"
                     )}
                   >
                     {link.label}
                     {link.badge && (
-                      <span className="px-2 py-0.5 text-[0.625rem] font-[590] bg-accent-tint text-accent-hover rounded-full">
+                      <span className="px-2 py-0.5 text-[0.625rem] font-[600] bg-accent-tint text-accent-hover rounded-full">
                         {link.badge}
                       </span>
                     )}
@@ -180,4 +176,3 @@ export function Navbar({
     </nav>
   );
 }
-

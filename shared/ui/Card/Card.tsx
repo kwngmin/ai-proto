@@ -1,26 +1,26 @@
-import { type HTMLAttributes, type ReactNode, forwardRef } from 'react';
-import Image from 'next/image';
-import { cn } from '@/shared/lib/utils';
+import { type HTMLAttributes, type ReactNode, forwardRef } from "react";
+import Image from "next/image";
+import { cn } from "@/shared/lib/utils";
 
-type CardVariant = 'default' | 'bordered' | 'elevated';
+type CardVariant = "default" | "bordered" | "elevated";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
-  padding?: 'none' | 'small' | 'medium' | 'large';
+  padding?: "none" | "small" | "medium" | "large";
   children: ReactNode;
 }
 
 const variantClasses: Record<CardVariant, string> = {
-  default: 'bg-bg-secondary border border-border-primary',
-  bordered: 'bg-bg-primary border-2 border-border-secondary',
-  elevated: 'bg-bg-secondary border border-border-primary shadow-md',
+  default: "bg-bg-secondary border border-border-primary",
+  bordered: "bg-bg-primary border-2 border-border-secondary",
+  elevated: "bg-bg-secondary border border-border-primary shadow-md",
 };
 
 const paddingClasses = {
-  none: 'p-0',
-  small: 'p-3',
-  medium: 'p-4',
-  large: 'p-6',
+  none: "p-0",
+  small: "p-3",
+  medium: "p-4",
+  large: "p-6",
 };
 
 /**
@@ -32,13 +32,16 @@ const paddingClasses = {
  * @returns 스타일이 적용된 카드 요소
  */
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ variant = 'default', padding = 'medium', className, children, ...props }, ref) => {
+  (
+    { variant = "default", padding = "medium", className, children, ...props },
+    ref
+  ) => {
     return (
       <div
         ref={ref}
         className={cn(
-          'rounded-[12px]',
-          'transition-all duration-[var(--transition-regular)]',
+          "rounded-[12px]",
+          "transition-all duration-[var(--transition-regular)]",
           variantClasses[variant],
           paddingClasses[padding],
           className
@@ -51,7 +54,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
   }
 );
 
-Card.displayName = 'Card';
+Card.displayName = "Card";
 
 /**
  * 카드 헤더 컴포넌트
@@ -63,7 +66,7 @@ export const CardHeader = forwardRef<
   return (
     <div
       ref={ref}
-      className={cn('flex flex-col gap-1.5', className)}
+      className={cn("flex flex-col gap-1.5", className)}
       {...props}
     >
       {children}
@@ -71,7 +74,7 @@ export const CardHeader = forwardRef<
   );
 });
 
-CardHeader.displayName = 'CardHeader';
+CardHeader.displayName = "CardHeader";
 
 /**
  * 카드 타이틀 컴포넌트
@@ -84,7 +87,7 @@ export const CardTitle = forwardRef<
     <h3
       ref={ref}
       className={cn(
-        'text-[1.0625rem] leading-[1.4] tracking-[-0.012em] font-[590] text-text-primary',
+        "text-[1.0625rem] leading-[1.4] tracking-[-0.012em] font-[600] text-text-primary",
         className
       )}
       {...props}
@@ -94,7 +97,7 @@ export const CardTitle = forwardRef<
   );
 });
 
-CardTitle.displayName = 'CardTitle';
+CardTitle.displayName = "CardTitle";
 
 /**
  * 카드 설명 컴포넌트
@@ -106,7 +109,7 @@ export const CardDescription = forwardRef<
   return (
     <p
       ref={ref}
-      className={cn('text-[0.875rem] text-text-tertiary', className)}
+      className={cn("text-[0.875rem] text-text-tertiary", className)}
       {...props}
     >
       {children}
@@ -114,7 +117,7 @@ export const CardDescription = forwardRef<
   );
 });
 
-CardDescription.displayName = 'CardDescription';
+CardDescription.displayName = "CardDescription";
 
 /**
  * 카드 콘텐츠 컴포넌트
@@ -124,13 +127,13 @@ export const CardContent = forwardRef<
   HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
   return (
-    <div ref={ref} className={cn('pt-0', className)} {...props}>
+    <div ref={ref} className={cn("pt-0", className)} {...props}>
       {children}
     </div>
   );
 });
 
-CardContent.displayName = 'CardContent';
+CardContent.displayName = "CardContent";
 
 /**
  * 카드 푸터 컴포넌트
@@ -142,7 +145,7 @@ export const CardFooter = forwardRef<
   return (
     <div
       ref={ref}
-      className={cn('flex items-center gap-2 pt-4', className)}
+      className={cn("flex items-center gap-2 pt-4", className)}
       {...props}
     >
       {children}
@@ -150,7 +153,7 @@ export const CardFooter = forwardRef<
   );
 });
 
-CardFooter.displayName = 'CardFooter';
+CardFooter.displayName = "CardFooter";
 
 /**
  * 카드 이미지 컴포넌트
@@ -160,21 +163,21 @@ export const CardImage = forwardRef<
   HTMLAttributes<HTMLDivElement> & {
     src: string;
     alt: string;
-    aspectRatio?: 'square' | 'video' | 'wide' | 'portrait';
+    aspectRatio?: "square" | "video" | "wide" | "portrait";
   }
->(({ className, src, alt, aspectRatio = 'video', ...props }, ref) => {
+>(({ className, src, alt, aspectRatio = "video", ...props }, ref) => {
   const aspectRatioClasses = {
-    square: 'aspect-square',
-    video: 'aspect-video',
-    wide: 'aspect-[21/9]',
-    portrait: 'aspect-[3/4]',
+    square: "aspect-square",
+    video: "aspect-video",
+    wide: "aspect-[21/9]",
+    portrait: "aspect-[3/4]",
   };
 
   return (
     <div
       ref={ref}
       className={cn(
-        'relative w-full overflow-hidden',
+        "relative w-full overflow-hidden",
         aspectRatioClasses[aspectRatio],
         className
       )}
@@ -191,5 +194,4 @@ export const CardImage = forwardRef<
   );
 });
 
-CardImage.displayName = 'CardImage';
-
+CardImage.displayName = "CardImage";

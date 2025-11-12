@@ -90,9 +90,9 @@
     "fontWeight": {
       "light": "300",
       "normal": "400",
-      "medium": "510",
-      "semibold": "590",
-      "bold": "680"
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
     },
     "fontSize": {
       "micro": ".6875rem",

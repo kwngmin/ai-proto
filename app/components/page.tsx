@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   Heading,
@@ -20,6 +20,7 @@ import {
   Footer,
   Hero,
   HeroGridPattern,
+  Toggle,
 } from "@/shared/ui";
 
 /**
@@ -30,6 +31,23 @@ export default function ComponentsPage() {
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  // 테마 초기화 및 localStorage 동기화
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as "dark" | "light" | null;
+    const initialTheme = savedTheme || "dark";
+    setTheme(initialTheme);
+    document.documentElement.setAttribute("data-theme", initialTheme);
+  }, []);
+
+  // 테마 변경 핸들러
+  const handleThemeToggle = (checked: boolean) => {
+    const newTheme = checked ? "light" : "dark";
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
 
   const handleButtonClick = () => {
     setLoading(true);
@@ -50,10 +68,22 @@ export default function ComponentsPage() {
     <div className="min-h-screen bg-bg-primary">
       {/* Header */}
       <header className="sticky top-0 z-[var(--z-header)] border-b border-border-primary bg-[var(--bg-primary)]/80 backdrop-blur-[20px]">
-        <div className="max-w-[1024px] mx-auto px-6 py-4">
+        <div className="max-w-[1024px] mx-auto px-6 py-4 flex items-center justify-between">
           <Heading level="2" color="primary">
             Component Library
           </Heading>
+          <div className="flex items-center gap-3">
+            <Text size="small" color="tertiary">
+              {theme === "dark" ? "다크 모드" : "라이트 모드"}
+            </Text>
+            <Toggle
+              checked={theme === "light"}
+              onChange={(e) => handleThemeToggle(e.target.checked)}
+              size="medium"
+              variant="primary"
+              aria-label="테마 전환"
+            />
+          </div>
         </div>
       </header>
 
@@ -585,11 +615,69 @@ export default function ComponentsPage() {
             </Card>
           </section>
 
-          {/* Inputs Section */}
-          <section>
-            <Heading level="3" className="mb-6">
-              Inputs
-            </Heading>
+           {/* Toggle Section */}
+           <section>
+             <Heading level="3" className="mb-6">
+               Toggle
+             </Heading>
+             <Card>
+               <CardContent className="space-y-6 pt-6">
+                 {/* Variants */}
+                 <div className="space-y-4">
+                   <Text
+                     size="small"
+                     color="tertiary"
+                     className="uppercase tracking-wide"
+                   >
+                     Variants
+                   </Text>
+                   <div className="flex flex-wrap items-center gap-6">
+                     <Toggle variant="default" label="Default Toggle" />
+                     <Toggle variant="primary" label="Primary Toggle" defaultChecked />
+                     <Toggle variant="accent" label="Accent Toggle" defaultChecked />
+                   </div>
+                 </div>
+
+                 {/* Sizes */}
+                 <div className="space-y-4 pt-4 border-t border-border-primary">
+                   <Text
+                     size="small"
+                     color="tertiary"
+                     className="uppercase tracking-wide"
+                   >
+                     Sizes
+                   </Text>
+                   <div className="flex flex-wrap items-center gap-6">
+                     <Toggle size="small" label="Small" />
+                     <Toggle size="medium" label="Medium" defaultChecked />
+                     <Toggle size="large" label="Large" defaultChecked />
+                   </div>
+                 </div>
+
+                 {/* States */}
+                 <div className="space-y-4 pt-4 border-t border-border-primary">
+                   <Text
+                     size="small"
+                     color="tertiary"
+                     className="uppercase tracking-wide"
+                   >
+                     States
+                   </Text>
+                   <div className="flex flex-wrap items-center gap-6">
+                     <Toggle label="Enabled" defaultChecked />
+                     <Toggle label="Disabled" disabled />
+                     <Toggle label="Disabled Checked" disabled defaultChecked />
+                   </div>
+                 </div>
+               </CardContent>
+             </Card>
+           </section>
+
+           {/* Inputs Section */}
+           <section>
+             <Heading level="3" className="mb-6">
+               Inputs
+             </Heading>
             <Card>
               <CardContent className="space-y-6 pt-6">
                 {/* Basic Input */}

@@ -21,4 +21,5 @@ export { Carousel, CarouselSlide } from './Carousel';
 export { Navbar } from './Navbar';
 export { Footer } from './Footer';
 export { Hero, HeroGridPattern } from './Hero';
+export { Toggle } from './Toggle';
 

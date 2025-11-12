@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { type InputHTMLAttributes, forwardRef, useState, useId } from 'react';
-import { cn } from '@/shared/lib/utils';
+import { type InputHTMLAttributes, forwardRef, useState, useId } from "react";
+import { cn } from "@/shared/lib/utils";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -38,11 +38,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || generatedId;
 
     return (
-      <div className={cn('flex flex-col gap-1.5', fullWidth && 'w-full')}>
+      <div className={cn("flex flex-col gap-1.5", fullWidth && "w-full")}>
         {label && (
           <label
             htmlFor={inputId}
-            className="text-[0.875rem] font-[510] text-text-secondary tracking-[-0.013em]"
+            className="text-[0.875rem] font-[500] text-text-secondary tracking-[-0.013em]"
           >
             {label}
           </label>
@@ -52,19 +52,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           disabled={disabled}
           className={cn(
-            'px-3 py-2 rounded-[8px]',
-            'bg-bg-secondary text-text-primary',
-            'border border-border-primary',
-            'placeholder:text-text-quaternary',
-            'text-[0.9375rem] tracking-[-0.011em]',
-            'transition-all duration-[var(--transition-quick)]',
-            'focus:outline-none focus:ring-2 focus:ring-focus-ring-color focus:ring-offset-2 focus:ring-offset-bg-primary',
-            'hover:border-border-secondary',
-            'disabled:opacity-50 disabled:cursor-not-allowed',
-            error &&
-              'border-red focus:ring-red',
-            isFocused && !error && 'border-accent-default',
-            fullWidth && 'w-full',
+            "px-3 py-2 rounded-[8px]",
+            "bg-bg-secondary text-text-primary",
+            "border border-border-primary",
+            "placeholder:text-text-quaternary",
+            "text-[0.9375rem] tracking-[-0.011em]",
+            "transition-all duration-[var(--transition-quick)]",
+            "focus:outline-none focus:ring-2 focus:ring-focus-ring-color focus:ring-offset-2 focus:ring-offset-bg-primary",
+            "hover:border-border-secondary",
+            "disabled:opacity-50 disabled:cursor-not-allowed",
+            error && "border-red focus:ring-red",
+            isFocused && !error && "border-accent-default",
+            fullWidth && "w-full",
             className
           )}
           onFocus={(e) => {
@@ -80,8 +79,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {(error || helperText) && (
           <p
             className={cn(
-              'text-[0.75rem] tracking-[-0.01em]',
-              error ? 'text-red' : 'text-text-tertiary'
+              "text-[0.75rem] tracking-[-0.01em]",
+              error ? "text-red" : "text-text-tertiary"
             )}
           >
             {error || helperText}
@@ -92,5 +91,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = 'Input';
-
+Input.displayName = "Input";

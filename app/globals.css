@@ -117,6 +117,61 @@
   --z-tooltip: 1100;
 }
 
+/* Light Mode Theme */
+:root[data-theme="light"] {
+  /* Background Colors - Light Mode (대비 유지) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f7;
+  --bg-tertiary: #e8e8eb;
+  --bg-quaternary: #d1d1d6;
+  --bg-quinary: #c7c7cc;
+  --bg-marketing: #fafafa;
+  --bg-tint: #f0f0f2;
+  --bg-translucent: rgba(0, 0, 0, 0.05);
+  --bg-level0: #ffffff;
+  --bg-level1: #f5f5f7;
+  --bg-level2: #e8e8eb;
+  --bg-level3: #d1d1d6;
+
+  /* Foreground Colors - Light Mode (대비 유지) */
+  --fg-primary: #08090a;
+  --fg-secondary: #1c1c1f;
+  --fg-tertiary: #62666d;
+  --fg-quaternary: #8a8f98;
+
+  /* Text Colors - Light Mode (대비 유지) */
+  --text-primary: #08090a;
+  --text-secondary: #1c1c1f;
+  --text-tertiary: #62666d;
+  --text-quaternary: #8a8f98;
+
+  /* Border Colors - Light Mode */
+  --border-primary: #d1d1d6;
+  --border-secondary: #c7c7cc;
+  --border-tertiary: #aeaeb2;
+  --border-translucent: rgba(0, 0, 0, 0.05);
+
+  /* Line Colors - Light Mode */
+  --line-primary: #c7c7cc;
+  --line-secondary: #d1d1d6;
+  --line-tertiary: #e8e8eb;
+  --line-quaternary: #f0f0f2;
+  --line-tint: #f5f5f7;
+
+  /* Selection Colors - Light Mode */
+  --selection-bg: color-mix(in lch, #5e6ad2, white 10%);
+  --selection-text: #08090a;
+  --selection-dim: color-mix(in lch, #5e6ad2, transparent 80%);
+
+  /* Accent Colors - Light Mode (라이트 모드에 맞게 조정) */
+  --accent-tint: rgba(113, 112, 255, 0.1);
+}
+
+/* Default to dark mode */
+:root:not([data-theme]) {
+  /* Dark mode is already defined above */
+}
+
 @theme inline {
   /* Background Colors */
   --color-bg-primary: var(--bg-primary);
@@ -221,4 +276,17 @@ body {
 
 ::-webkit-scrollbar-thumb:active {
   background: rgba(255, 255, 255, 0.4);
+}
+
+/* Light Mode Scrollbar */
+:root[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="light"] ::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.4);
 }

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { type ButtonHTMLAttributes, type ReactNode, forwardRef } from 'react';
-import { cn } from '@/shared/lib/utils';
+import { type ButtonHTMLAttributes, type ReactNode, forwardRef } from "react";
+import { cn } from "@/shared/lib/utils";
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
-type ButtonSize = 'small' | 'medium' | 'large';
+type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -16,19 +16,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-brand text-brand-text hover:bg-accent-hover active:bg-accent-default transition-colors',
+    "bg-brand text-brand-text hover:bg-accent-hover active:bg-accent-default transition-colors",
   secondary:
-    'bg-bg-secondary text-text-primary hover:bg-bg-tertiary border border-border-primary transition-colors',
+    "bg-bg-secondary text-text-primary hover:bg-bg-tertiary border border-border-primary transition-colors",
   ghost:
-    'bg-transparent text-text-primary hover:bg-bg-translucent transition-colors',
+    "bg-transparent text-text-primary hover:bg-bg-translucent transition-colors",
   danger:
-    'bg-red text-ui-white hover:opacity-90 active:opacity-80 transition-opacity',
+    "bg-red text-ui-white hover:opacity-90 active:opacity-80 transition-opacity",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  small: 'px-3 py-1.5 text-[0.8125rem] rounded-[6px]',
-  medium: 'px-4 py-2 text-[0.9375rem] rounded-[8px]',
-  large: 'px-6 py-3 text-[1.0625rem] rounded-[12px]',
+  small: "h-8 px-3 text-[0.8125rem] rounded-[6px]",
+  medium: "h-10 px-4 text-[0.9375rem] rounded-[8px]",
+  large: "h-12 px-6 text-[1.0625rem] rounded-[12px]",
 };
 
 /**
@@ -45,8 +45,8 @@ const sizeClasses: Record<ButtonSize, string> = {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      variant = 'primary',
-      size = 'medium',
+      variant = "primary",
+      size = "medium",
       fullWidth = false,
       loading = false,
       disabled = false,
@@ -61,14 +61,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || loading}
         className={cn(
-          'inline-flex items-center justify-center gap-2',
-          'font-[510] tracking-[-0.011em]',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring-color focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary',
-          'disabled:opacity-50 disabled:cursor-not-allowed',
-          'transition-all duration-[var(--transition-quick)]',
+          "inline-flex items-center justify-center gap-2",
+          "font-[500] tracking-[-0.011em]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring-color focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
+          "transition-all duration-[var(--transition-quick)]",
           variantClasses[variant],
           sizeClasses[size],
-          fullWidth && 'w-full',
+          fullWidth && "w-full",
           className
         )}
         {...props}
@@ -101,5 +101,4 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = 'Button';
-
+Button.displayName = "Button";
