@@ -108,41 +108,41 @@ export default function Home() {
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         {/* 배경 그라데이션 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-cyan-50 to-blue-50" />
+        <div className="absolute inset-0 bg-linear-to-br from-emerald-50 via-cyan-50 to-blue-50" />
 
         {/* 3D 기하학적 요소들 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* 왼쪽 상단 - 초록색 큐브 스택 */}
           <div className="absolute top-20 left-10 lg:left-20">
             <div className="relative w-32 h-32 lg:w-40 lg:h-40">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-300/30 to-emerald-500/30 transform rotate-12 rounded-lg shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 transform rotate-6 translate-x-2 translate-y-2 rounded-lg shadow-md" />
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-300/25 to-cyan-500/25 transform -rotate-3 translate-x-4 translate-y-4 rounded-lg shadow-sm" />
+              <div className="absolute inset-0 bg-linear-to-br from-emerald-300/30 to-emerald-500/30 transform rotate-12 rounded-lg shadow-lg" />
+              <div className="absolute inset-0 bg-linear-to-br from-emerald-400/20 to-teal-500/20 transform rotate-6 translate-x-2 translate-y-2 rounded-lg shadow-md" />
+              <div className="absolute inset-0 bg-linear-to-br from-teal-300/25 to-cyan-500/25 transform -rotate-3 translate-x-4 translate-y-4 rounded-lg shadow-sm" />
             </div>
           </div>
 
           {/* 왼쪽 중단 - 데이터 박스 */}
           <div className="absolute top-1/2 left-5 lg:left-16 transform -translate-y-1/2">
-            <div className="w-24 h-24 lg:w-32 lg:h-32 bg-gradient-to-br from-teal-300/25 to-cyan-400/25 rounded-xl shadow-lg transform rotate-45" />
+            <div className="w-24 h-24 lg:w-32 lg:h-32 bg-linear-to-br from-teal-300/25 to-cyan-400/25 rounded-xl shadow-lg transform rotate-45" />
           </div>
 
           {/* 오른쪽 상단 - 파란색 원형 및 리본 */}
           <div className="absolute top-16 right-10 lg:right-24">
             <div className="relative w-40 h-40 lg:w-48 lg:h-48">
-              <div className="absolute top-0 right-0 w-36 h-36 lg:w-44 lg:h-44 bg-gradient-to-br from-cyan-300/30 to-blue-400/30 rounded-full shadow-xl" />
-              <div className="absolute top-8 right-8 w-24 h-24 bg-gradient-to-br from-blue-400/25 to-indigo-500/25 rounded-full shadow-lg" />
+              <div className="absolute top-0 right-0 w-36 h-36 lg:w-44 lg:h-44 bg-linear-to-br from-cyan-300/30 to-blue-400/30 rounded-full shadow-xl" />
+              <div className="absolute top-8 right-8 w-24 h-24 bg-linear-to-br from-blue-400/25 to-indigo-500/25 rounded-full shadow-lg" />
               {/* 리본 효과 */}
-              <div className="absolute top-12 right-0 w-40 h-8 bg-gradient-to-r from-cyan-400/20 to-transparent transform -rotate-12" />
+              <div className="absolute top-12 right-0 w-40 h-8 bg-linear-to-r from-cyan-400/20 to-transparent transform -rotate-12" />
             </div>
           </div>
 
           {/* 오른쪽 중단 - 파이 차트 */}
           <div className="absolute top-1/2 right-5 lg:right-20 transform -translate-y-1/2">
             <div className="relative w-28 h-28 lg:w-36 lg:h-36">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-300/25 to-cyan-400/25 rounded-full shadow-lg" />
+              <div className="absolute inset-0 bg-linear-to-br from-blue-300/25 to-cyan-400/25 rounded-full shadow-lg" />
               {/* 파이 차트 효과 */}
               <div
-                className="absolute inset-0 bg-gradient-to-br from-indigo-400/30 to-transparent rounded-full"
+                className="absolute inset-0 bg-linear-to-br from-indigo-400/30 to-transparent rounded-full"
                 style={{
                   clipPath: "polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%)",
                 }}
@@ -231,20 +231,20 @@ export default function Home() {
 
           {/* 하단 - 다양한 3D 요소들 */}
           <div className="absolute bottom-20 left-1/4 transform -translate-x-1/2">
-            <div className="w-32 h-32 lg:w-40 lg:h-40 bg-gradient-to-br from-emerald-300/20 to-teal-400/20 rounded-2xl shadow-xl transform rotate-12" />
+            <div className="w-32 h-32 lg:w-40 lg:h-40 bg-linear-to-br from-emerald-300/20 to-teal-400/20 rounded-2xl shadow-xl transform rotate-12" />
           </div>
 
           <div className="absolute bottom-24 right-1/4 transform translate-x-1/2">
             <div className="relative w-28 h-28 lg:w-36 lg:h-36">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-300/20 to-blue-400/20 rounded-xl shadow-lg transform -rotate-6" />
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-300/20 to-blue-400/20 rounded-xl shadow-lg transform -rotate-6" />
               {/* 작은 정육면체 */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-blue-400/30 to-indigo-500/30 rounded-md shadow-md" />
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-linear-to-br from-blue-400/30 to-indigo-500/30 rounded-md shadow-md" />
             </div>
           </div>
 
           {/* 하단 중앙 - 원형 플랫폼 */}
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-            <div className="w-48 h-16 bg-gradient-to-r from-emerald-300/15 via-cyan-300/15 to-blue-300/15 rounded-full blur-sm" />
+            <div className="w-48 h-16 bg-linear-to-r from-emerald-300/15 via-cyan-300/15 to-blue-300/15 rounded-full blur-sm" />
           </div>
         </div>
 
@@ -476,11 +476,281 @@ export default function Home() {
           </div>
 
           {/* FP 리포트 상세 정보 */}
-          <div className="">
+          <div className="relative perspective-midrange perspective-origin-top after:content-[''] after:pointer-events-none after:absolute after:top-0 after:scale-125 after:w-full after:h-full after:bg-linear-to-b after:from-transparent after:to-white">
             <Card
               variant="elevated"
               padding="large"
-              className="-rotate-z-20 rotate-y-10 rotate-x-30"
+              className="rotate-x-30 translate-y-0 scale-90 shadow-none"
+              // className="-rotate-z-20 rotate-y-10 rotate-x-30"
+            >
+              <CardHeader>
+                <CardTitle>FP 리포트 상세</CardTitle>
+                <CardDescription>
+                  <Text size="small" color="secondary" className="mt-2">
+                    프로젝트: 서비스 FP 산정 (총 기능점수: 1,082.9 FP)
+                  </Text>
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* 개발원가 산정 */}
+                  <div>
+                    <Heading level="5" className="mb-4">
+                      개발원가 산정
+                    </Heading>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          총 기능점수
+                        </Text>
+                        <Text size="small" weight="medium">
+                          1,082.9
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          기능점수당 단가
+                        </Text>
+                        <Text size="small" weight="medium">
+                          553,114원
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          보정 후 개발원가
+                        </Text>
+                        <Text size="small" weight="medium">
+                          540,567,383원
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          이윤 (15%)
+                        </Text>
+                        <Text size="small" weight="medium">
+                          81,085,107원
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-3 mt-2 bg-blue-50 px-3 rounded-lg">
+                        <Text size="small" weight="semibold" color="primary">
+                          소프트웨어 개발비
+                        </Text>
+                        <Text size="small" weight="bold" color="primary">
+                          621,652,490원
+                        </Text>
+                      </div>
+                    </div>
+                    <Text size="tiny" color="tertiary" className="mt-3">
+                      ※ 2023년 기준 SW 개발사업 1FP 당 단가 553,114원
+                    </Text>
+                  </div>
+
+                  {/* 보정계수 산정 */}
+                  <div>
+                    <Heading level="5" className="mb-4">
+                      보정계수 산정
+                    </Heading>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          SW규모
+                        </Text>
+                        <Text size="small" weight="medium">
+                          0.9058
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          연계복잡성
+                        </Text>
+                        <Text size="small" weight="medium">
+                          0.94
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          성능 요구수준
+                        </Text>
+                        <Text size="small" weight="medium">
+                          1.00
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          운영환경 호환성
+                        </Text>
+                        <Text size="small" weight="medium">
+                          1.06
+                        </Text>
+                      </div>
+                      <div className="flex justify-between py-2 border-b">
+                        <Text size="small" color="secondary">
+                          보안성 요구수준
+                        </Text>
+                        <Text size="small" weight="medium">
+                          1.00
+                        </Text>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* FP 집계 */}
+                  {/* <div className="md:col-span-2">
+                    <Heading level="5" className="mb-4">
+                      FP 집계
+                    </Heading>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b-2 border-gray-300">
+                            <th className="text-left py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                구분
+                              </Text>
+                            </th>
+                            <th className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                ILF
+                              </Text>
+                            </th>
+                            <th className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                EIF
+                              </Text>
+                            </th>
+                            <th className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                EI
+                              </Text>
+                            </th>
+                            <th className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                EO
+                              </Text>
+                            </th>
+                            <th className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                EQ
+                              </Text>
+                            </th>
+                            <th className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                계
+                              </Text>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b">
+                            <td className="py-3 px-3">
+                              <Text size="small" color="secondary">
+                                기능수
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">2</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">47</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">94</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">10</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">99</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                252
+                              </Text>
+                            </td>
+                          </tr>
+                          <tr className="border-b">
+                            <td className="py-3 px-3">
+                              <Text size="small" color="secondary">
+                                기능 점수
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">15</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">253.8</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">376</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">52</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small">386.1</Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                1,082.9
+                              </Text>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="py-3 px-3">
+                              <Text size="small" color="secondary">
+                                비중
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" color="tertiary">
+                                0.8%
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" color="tertiary">
+                                18.7%
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" color="tertiary">
+                                37.3%
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" color="tertiary">
+                                4.0%
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" color="tertiary">
+                                39.3%
+                              </Text>
+                            </td>
+                            <td className="text-center py-3 px-3">
+                              <Text size="small" weight="semibold">
+                                100%
+                              </Text>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div> */}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* FP 리포트 상세 정보 */}
+          <div className="relative perspective-[3000px] perspective-origin-top-right">
+            <Card
+              variant="elevated"
+              padding="large"
+              className="max-w-[1000px] mb-52 rotate-x-[47deg] rotate-y-[30deg] rotate-[327deg] translate-[2%] shadow-none scale-[120%] pb-96"
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+              // className="-rotate-z-20 rotate-y-10 rotate-x-30"
             >
               <CardHeader>
                 <CardTitle>FP 리포트 상세</CardTitle>
@@ -834,7 +1104,7 @@ export default function Home() {
       {/* CTA Section */}
       <section
         id="contact"
-        className="py-24 bg-gradient-to-br from-blue-50 to-indigo-50"
+        className="py-24 bg-linear-to-br from-blue-50 to-indigo-50"
       >
         <div className="max-w-[1280px] mx-auto px-6">
           <Card variant="elevated" padding="large" className="text-center">
